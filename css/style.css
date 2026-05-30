@@ -416,6 +416,11 @@ h4 { font-size: 0.86rem; font-weight: 600; }
 .field__label { font-size: 0.82rem; color: var(--t-mid); font-weight: 500; }
 .field__label .req { color: var(--st-crit); }
 .field__hint { font-size: 0.72rem; color: var(--t-dim); }
+/* Mensagem de erro de validação (controlada por JS no WD) */
+.field__error { font-size: 0.74rem; color: var(--st-crit); display: flex; align-items: center; gap: 6px; }
+.field__error::before { content: "▲"; font-size: 0.6rem; }
+.input.is-invalid { border-color: var(--st-crit); box-shadow: 0 0 0 3px var(--st-crit-bg); }
+.input.is-valid { border-color: rgba(52,211,153,.5); }
 .input, .select {
   width: 100%; padding: var(--s-3) var(--s-4);
   background: var(--c-deep); border: 1px solid var(--c-line);
@@ -511,6 +516,49 @@ h4 { font-size: 0.86rem; font-weight: 600; }
 .chart-caption { display: flex; align-items: center; gap: var(--s-4); margin-top: var(--s-3); flex-wrap: wrap; font-size: 0.74rem; color: var(--t-low); }
 .chart-caption span { display: inline-flex; align-items: center; gap: 6px; }
 .chart-key { width: 16px; height: 3px; border-radius: 2px; }
+
+/* ============== Componentes controlados por JS (WD) ============== */
+/* Toast / notificações flutuantes injetadas via DOM */
+.toast-deck { position: fixed; right: var(--s-5); bottom: var(--s-5); z-index: 80; display: flex; flex-direction: column; gap: var(--s-3); max-width: 360px; }
+.toast {
+  display: flex; gap: var(--s-3); align-items: flex-start;
+  padding: var(--s-4); border-radius: var(--r-md);
+  background: var(--c-elevated); border: 1px solid var(--c-line);
+  box-shadow: var(--sh-3); animation: rise .35s ease forwards;
+}
+.toast__icon { flex: none; width: 30px; height: 30px; border-radius: var(--r-sm); display: grid; place-items: center; }
+.toast__icon svg { width: 17px; height: 17px; }
+.toast__title { font-size: 0.86rem; color: var(--t-hi); font-weight: 600; }
+.toast__msg { font-size: 0.78rem; color: var(--t-mid); }
+.toast--calm  .toast__icon { background: var(--st-calm-bg); color: var(--st-calm); }
+.toast--warn  .toast__icon { background: var(--st-warn-bg); color: var(--st-warn); }
+.toast--crit  .toast__icon { background: var(--st-crit-bg); color: var(--st-crit); }
+.toast--crit  { border-color: rgba(251,106,94,.4); }
+.toast.is-leaving { animation: fade-out .3s ease forwards; }
+@keyframes fade-out { to { opacity: 0; transform: translateX(20px); } }
+
+/* Destaque momentâneo quando um valor é atualizado pelo JS */
+.flash { animation: flash-kf 1s ease; }
+@keyframes flash-kf {
+  0% { color: var(--signal-bright); text-shadow: 0 0 12px var(--signal-glow); }
+  100% { } /* volta à cor original do elemento */
+}
+
+/* Botão em processamento (setTimeout simulando comunicação) */
+.btn.is-loading { color: transparent !important; pointer-events: none; position: relative; }
+.btn.is-loading::after {
+  content: ""; position: absolute; width: 16px; height: 16px;
+  border: 2px solid currentColor; border-top-color: transparent; border-radius: 50%;
+  color: var(--c-void); animation: orbit-spin .7s linear infinite;
+}
+.btn--ghost.is-loading::after, .btn--danger.is-loading::after { color: var(--t-hi); }
+
+/* Contador regressivo destacado */
+.countdown { font-family: var(--f-mono); font-variant-numeric: tabular-nums; letter-spacing: 0.04em; }
+.countdown.is-urgent { color: var(--st-crit); animation: blink 1.4s infinite; }
+
+/* Linha recém-inserida na timeline via JS */
+.tl__item.is-new .tl__title { color: var(--signal-bright); }
 
 /* ========================== 6. UTILITÁRIOS ========================= */
 .stack    { display: flex; flex-direction: column; }
