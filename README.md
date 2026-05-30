@@ -1,8 +1,13 @@
-# Dark Orbit BR — Centro de Controle (Front-End Design)
+# Dark Orbit BR — Centro de Controle (Front-End + Web Development)
 
-Protótipo de interface (HTML + CSS, **sem JavaScript**) do **Dark Orbit BR**, um sistema que prevê arrasto atmosférico e risco de colisão de satélites em órbita baixa (LEO) usando os dados da rede brasileira **EMBRACE/INPE**, que cobrem a Anomalia Magnética do Atlântico Sul (SAMA).
+Protótipo de interface do **Dark Orbit BR**, um sistema que prevê arrasto atmosférico e risco de colisão de satélites em órbita baixa (LEO) usando os dados da rede brasileira **EMBRACE/INPE**, que cobrem a Anomalia Magnética do Atlântico Sul (SAMA).
 
-Entrega da disciplina **Front-End Design** · Global Solution 2026 · FIAP — Engenharia de Software.
+Este repositório atende a **duas disciplinas** da Global Solution 2026 (FIAP — Engenharia de Software):
+
+- **Front-End Design (FED):** a estrutura (HTML semântico) e o estilo (CSS) — o "cockpit" do sistema.
+- **Web Development (WD):** a interatividade em **JavaScript puro** (DOM, eventos e BOM), que simula o sistema espacial funcionando em tempo real, sobre as mesmas telas.
+
+> Como o projeto é **conceitual**, o JavaScript **simula** a chegada de telemetria e o comportamento do sistema (não há back-end nem API real) — exatamente o protótipo funcional que a disciplina de WD pede.
 
 ---
 
@@ -87,6 +92,12 @@ projeto-frontend-space/
 ├── login.html          # Acesso da tripulação
 ├── css/
 │   └── style.css       # Sistema de design completo (tokens + componentes)
+├── js/                 # Interatividade (Web Development)
+│   ├── app.js          # Utilitários: relógio ao vivo + notificações (toasts)
+│   ├── login.js        # Validação do formulário de acesso
+│   ├── dashboard.js    # Telemetria simulada em tempo real + filtro da frota
+│   ├── satelite.js     # Contador regressivo + troca de horizonte do gráfico
+│   └── manobra.js      # Recálculo de projeção + confirmação de manobra
 ├── assets/
 │   ├── logo.svg        # Logotipo do Dark Orbit BR
 │   ├── moodboard.png   # Moodboard com análise crítica de referências
@@ -97,6 +108,40 @@ projeto-frontend-space/
 
 ---
 
-## 8. Próximo passo (Web Development)
+## 8. Manual de Interatividade (Web Development)
 
-Esta entrega termina na **estrutura e no estilo**. A interatividade virá na disciplina de Web Development, e as telas já foram preparadas para recebê-la: validação do formulário de login, atualização dos dados em tela (de "seguro" para "perigo"), ações dos botões de manobra e contadores/alertas em tempo real.
+Esta seção mostra ao avaliador **onde clicar** e **o que acontece** em cada tela. Toda a interatividade é feita com **JavaScript puro** (sem bibliotecas), cobrindo os três pilares pedidos: **DOM**, **Eventos** e **BOM**.
+
+> Recomenda-se começar pelo `login.html`, que leva ao painel ao entrar.
+
+### `login.html` — validação do formulário
+- **Deixe os campos vazios e clique em "Entrar"** → aparecem mensagens de erro em vermelho abaixo de cada campo, e o campo é destacado. *(Eventos: `submit`; DOM: exibição dos erros.)*
+- **Digite um e-mail sem "@" e saia do campo** → erro de e-mail inválido na hora (validação por expressão regular). *(Evento: `blur`.)*
+- **Clique no interruptor "Manter conectado"** → ele liga/desliga. *(Evento: `click`.)*
+- **Preencha um e-mail válido e uma senha com 6+ caracteres e clique em "Entrar"** → o botão mostra um spinner por um instante e a tela redireciona para o painel. *(BOM: `setTimeout`, `sessionStorage`/`localStorage`, `window.location`.)*
+
+### `index.html` — painel da frota (tela que "ganha vida")
+- **Observe o relógio no topo** → ele corre segundo a segundo em UTC. *(BOM: `setInterval` + `Date`.)*
+- **Observe o painel "Clima espacial"** → os índices (Kp, Dst, SAMA, TEC) mudam sozinhos a cada poucos segundos, como se novas leituras chegassem; as barras acompanham. *(BOM: `setInterval`; DOM: atualização de texto e largura das barras.)*
+- **Aguarde cerca de 8 segundos** → o satélite **NanoSat-Verde-2** muda de "atenção" para **crítico** sozinho: o ponto fica vermelho, o selo vira "Crítico", o indicador "Em risco de conjunção" sobe de 1 para 2, **um novo evento aparece no topo da timeline** e surge uma notificação. *(É a tela passando de "seguro" para "perigo"; DOM: alteração de classes, `createElement`/`insertBefore`.)*
+- **Clique nas abas "Todos / Atenção / Crítico"** acima da lista → a frota é filtrada na hora. *(Eventos + laço de repetição.)*
+- **Clique no sino (canto superior direito)** → aparece uma notificação com o resumo de alertas. *(Evento: `click`.)*
+
+### `satelite.html` — detalhe do satélite
+- **Observe "Janela de aproximação"** no painel "Conjunção ativa" → é um **contador regressivo** que diminui a cada segundo (e fica vermelho/piscando quando entra na última hora). *(BOM: `setInterval`.)*
+- **Clique nas abas "24h / 48h / 72h"** do gráfico de densidade → a legenda e o rótulo do gráfico se atualizam conforme o horizonte. *(Eventos + DOM.)*
+- **Clique no interruptor "Alertas automáticos"** (rodapé da ficha técnica) → alterna entre ativo/pausado e mostra uma notificação. *(Evento: `click`.)*
+
+### `manobra.html` — simulação de manobra
+- **Mude o valor de "Delta-v aplicado" (ex.: de 0,85 para 1,2) e clique em "Recalcular projeção"** → após um instante de processamento, os números da opção "Manobrar agora" (distância, probabilidade, combustível, vida útil) **são recalculados** e destacados. *(Eventos; BOM `setTimeout`; DOM; lógica de cálculo.)*
+- **Digite algo inválido no delta-v (ex.: letras) e recalcule** → aparece um aviso de valor inválido e o campo é destacado. *(Lógica de validação: `if/else`.)*
+- **Clique em "Selecionar e confirmar"** (opção recomendada) → abre um **diálogo de confirmação do navegador**. Se você confirmar, a manobra é "autorizada" (com aviso de sucesso); se cancelar, nada é enviado. *(BOM: `window.confirm` — atende à regra de que nenhuma manobra é automática.)*
+- **Clique em "Agendar reavaliação"** (opção de esperar) → agenda a reavaliação e avisa na tela. *(Evento + BOM.)*
+
+### Recursos de JavaScript usados (resumo)
+| Pilar | Onde aparece |
+|---|---|
+| **DOM** | Atualização de textos e barras do clima espacial; troca de status do satélite; inserção de eventos na timeline; recálculo dos resultados da manobra; mensagens de erro do login. |
+| **Eventos** | `submit` e `blur` no login; `click` nas abas de filtro, nos interruptores, no sino e nos botões de manobra. |
+| **BOM** | `setInterval` (relógio, telemetria, contador); `setTimeout` (processamentos e redirecionamento); `window.confirm` (autorização da manobra); `window.location` (redirecionamento); `sessionStorage`/`localStorage` (sessão). |
+| **Lógica** | Validação com `if/else` e expressão regular; laço de repetição no filtro da frota; cálculo da projeção a partir do delta-v. |

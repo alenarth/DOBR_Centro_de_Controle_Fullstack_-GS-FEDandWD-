@@ -86,8 +86,8 @@
         <div class="topbar__spacer"></div>
         <div class="topbar__meta">
           <span class="live"><span class="live__dot" aria-hidden="true"></span> SINAL AO VIVO</span>
-          <time class="clock" datetime="2026-05-25T15:30">25 MAI · 15:30 UTC</time>
-          <button class="iconbtn" aria-label="Notificações">
+          <time class="clock" datetime="2026-05-25T15:30" data-relogio>25 MAI · 15:30 UTC</time>
+          <button class="iconbtn" aria-label="Notificações" id="btn-notificacoes">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 7-2 7h16s-2-2-2-7a6 6 0 0 0-6-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
           </button>
         </div>
@@ -129,7 +129,7 @@
               <span class="kpi__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
               <span class="pill pill--crit"><span class="pill__dot" aria-hidden="true"></span>Crítico</span>
             </div>
-            <div><span class="kpi__value" style="color:var(--st-crit)">1</span></div>
+            <div><span class="kpi__value" style="color:var(--st-crit)" id="kpi-risco">1</span></div>
             <span class="kpi__label">Em risco de conjunção</span>
           </article>
 
@@ -162,13 +162,13 @@
                 Frota monitorada
               </h3>
               <div class="tabs" role="tablist" aria-label="Filtrar por status">
-                <span class="tab" role="tab" aria-selected="true">Todos</span>
-                <span class="tab" role="tab" aria-selected="false">Atenção</span>
-                <span class="tab" role="tab" aria-selected="false">Crítico</span>
+                <button class="tab" role="tab" aria-selected="true" data-filtro="todos">Todos</button>
+                <button class="tab" role="tab" aria-selected="false" data-filtro="warn">Atenção</button>
+                <button class="tab" role="tab" aria-selected="false" data-filtro="crit">Crítico</button>
               </div>
             </div>
 
-            <div class="fleet" role="table" aria-label="Satélites da frota">
+            <div class="fleet" role="table" aria-label="Satélites da frota" id="lista-frota">
               <div class="fleet__row fleet__row--head" role="row">
                 <span role="columnheader" aria-label="Status"></span>
                 <span role="columnheader">Satélite</span>
@@ -178,7 +178,7 @@
                 <span role="columnheader" aria-label="Abrir"></span>
               </div>
 
-              <a class="fleet__row" role="row" href="satelite.html">
+              <a class="fleet__row" role="row" href="satelite.html" data-status="crit">
                 <span class="statusdot statusdot--crit" role="cell" aria-label="Status crítico"></span>
                 <span class="fleet__name" role="cell"><b>CubeSat-Rio-1</b><span>NORAD 55001</span></span>
                 <span class="fleet__metric" data-label="Altitude" role="cell">503 <small>km</small></span>
@@ -187,7 +187,7 @@
                 <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
               </a>
 
-              <a class="fleet__row" role="row" href="satelite.html">
+              <a class="fleet__row" role="row" href="satelite.html" data-status="crit">
                 <span class="statusdot statusdot--crit" role="cell" aria-label="Status crítico"></span>
                 <span class="fleet__name" role="cell"><b>Estação-Baixa-4</b><span>NORAD 55033</span></span>
                 <span class="fleet__metric" data-label="Altitude" role="cell">225 <small>km</small></span>
@@ -196,16 +196,16 @@
                 <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
               </a>
 
-              <a class="fleet__row" role="row" href="satelite.html">
-                <span class="statusdot statusdot--warn" role="cell" aria-label="Status de atenção"></span>
+              <a class="fleet__row" role="row" href="satelite.html" data-status="warn" id="row-nano">
+                <span class="statusdot statusdot--warn" role="cell" aria-label="Status de atenção" id="nano-dot"></span>
                 <span class="fleet__name" role="cell"><b>NanoSat-Verde-2</b><span>NORAD 55014</span></span>
                 <span class="fleet__metric" data-label="Altitude" role="cell">540 <small>km</small></span>
                 <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--warn"><span class="pill__dot" aria-hidden="true"></span>Médio</span></span>
-                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Baixa</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell" id="nano-conj"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Baixa</span></span>
                 <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
               </a>
 
-              <a class="fleet__row" role="row" href="satelite.html">
+              <a class="fleet__row" role="row" href="satelite.html" data-status="calm">
                 <span class="statusdot statusdot--calm" role="cell" aria-label="Status calmo"></span>
                 <span class="fleet__name" role="cell"><b>Amazonia-Obs-3</b><span>NORAD 55020</span></span>
                 <span class="fleet__metric" data-label="Altitude" role="cell">598 <small>km</small></span>
@@ -214,7 +214,7 @@
                 <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
               </a>
 
-              <a class="fleet__row" role="row" href="satelite.html">
+              <a class="fleet__row" role="row" href="satelite.html" data-status="calm">
                 <span class="statusdot statusdot--calm" role="cell" aria-label="Status calmo"></span>
                 <span class="fleet__name" role="cell"><b>SACI-Edu-5</b><span>NORAD 55048</span></span>
                 <span class="fleet__metric" data-label="Altitude" role="cell">615 <small>km</small></span>
@@ -236,23 +236,23 @@
             </div>
             <div class="panel__body stack-5" style="display:flex;flex-direction:column;gap:var(--s-5)">
               <div class="gauge">
-                <div class="gauge__top"><span class="gauge__name">Índice Kp (geomagnético)</span><span class="gauge__val">7,0 / 9</span></div>
-                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" style="width:78%"></div></div>
+                <div class="gauge__top"><span class="gauge__name">Índice Kp (geomagnético)</span><span class="gauge__val" id="val-kp">7,0 / 9</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" id="bar-kp" style="width:78%"></div></div>
                 <div class="gauge__scale"><span>0 calmo</span><span>9 extremo</span></div>
               </div>
               <div class="gauge">
-                <div class="gauge__top"><span class="gauge__name">Dst (tempestade)</span><span class="gauge__val">−135 nT</span></div>
-                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" style="width:68%"></div></div>
+                <div class="gauge__top"><span class="gauge__name">Dst (tempestade)</span><span class="gauge__val" id="val-dst">−135 nT</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" id="bar-dst" style="width:68%"></div></div>
                 <div class="gauge__scale"><span>0</span><span>−200 nT</span></div>
               </div>
               <div class="gauge">
-                <div class="gauge__top"><span class="gauge__name">SAMA · ΔH local <span class="dim">(EMBRACE)</span></span><span class="gauge__val">+95 nT</span></div>
-                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" style="width:84%"></div></div>
+                <div class="gauge__top"><span class="gauge__name">SAMA · ΔH local <span class="dim">(EMBRACE)</span></span><span class="gauge__val" id="val-sama">+95 nT</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" id="bar-sama" style="width:84%"></div></div>
                 <div class="gauge__scale"><span>baixo</span><span>alto</span></div>
               </div>
               <div class="gauge">
-                <div class="gauge__top"><span class="gauge__name">TEC equatorial <span class="dim">(EMBRACE)</span></span><span class="gauge__val">1,55×</span></div>
-                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" style="width:72%"></div></div>
+                <div class="gauge__top"><span class="gauge__name">TEC equatorial <span class="dim">(EMBRACE)</span></span><span class="gauge__val" id="val-tec">1,55×</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" id="bar-tec" style="width:72%"></div></div>
                 <div class="gauge__scale"><span>1,0 normal</span><span>2,0</span></div>
               </div>
             </div>
@@ -346,7 +346,7 @@
               </h3>
             </div>
             <div class="panel__body">
-              <div class="timeline">
+              <div class="timeline" id="timeline-eventos">
                 <div class="tl__item">
                   <div class="tl__rail"><span class="tl__node tl__node--crit" aria-hidden="true"></span><span class="tl__line"></span></div>
                   <div>
@@ -411,5 +411,8 @@
       Alertas
     </a>
   </nav>
+
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
