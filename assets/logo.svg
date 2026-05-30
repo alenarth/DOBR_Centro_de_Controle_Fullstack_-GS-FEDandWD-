@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Logotipo do Dark Orbit BR">
+  <defs>
+    <linearGradient id="lg-signal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6bf0e4"/>
+      <stop offset="1" stop-color="#16a89c"/>
+    </linearGradient>
+    <radialGradient id="lg-core" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#6bf0e4"/>
+      <stop offset="0.6" stop-color="#3fe0d2"/>
+      <stop offset="1" stop-color="#16a89c"/>
+    </radialGradient>
+  </defs>
+  <!-- moldura -->
+  <rect x="1.5" y="1.5" width="45" height="45" rx="11" fill="#0a0f1d" stroke="#2c4470" stroke-width="1.5"/>
+  <!-- órbita externa (inclinada) -->
+  <ellipse cx="24" cy="24" rx="17" ry="8.5" fill="none" stroke="url(#lg-signal)" stroke-width="2" transform="rotate(-28 24 24)" opacity="0.9"/>
+  <!-- órbita interna -->
+  <ellipse cx="24" cy="24" rx="11" ry="5.5" fill="none" stroke="#3fe0d2" stroke-width="1.4" transform="rotate(-28 24 24)" opacity="0.45"/>
+  <!-- planeta / núcleo -->
+  <circle cx="24" cy="24" r="6" fill="url(#lg-core)"/>
+  <circle cx="24" cy="24" r="6" fill="none" stroke="#0a0f1d" stroke-width="1"/>
+  <!-- ponto de anomalia (SAMA) -->
+  <circle cx="21" cy="26.5" r="1.6" fill="#f5a623"/>
+  <!-- satélite na órbita -->
+  <g transform="rotate(-28 24 24)">
+    <circle cx="41" cy="24" r="2.4" fill="#6bf0e4"/>
+    <circle cx="41" cy="24" r="4" fill="none" stroke="#6bf0e4" stroke-width="0.8" opacity="0.5"/>
+  </g>
+</svg>

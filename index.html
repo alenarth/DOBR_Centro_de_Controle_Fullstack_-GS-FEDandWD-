@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dark Orbit BR — Centro de Controle. Painel de operação de risco orbital em tempo real para operadores de pequenas constelações.">
+  <title>Centro de Controle · Dark Orbit BR</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <div class="app">
+    <!-- ===================== NAVEGAÇÃO PRIMÁRIA ===================== -->
+    <aside class="sidebar">
+      <a class="brand" href="index.html" aria-label="Dark Orbit BR — início">
+        <img class="brand__mark" src="assets/logo.svg" alt="Logotipo do Dark Orbit BR: um planeta com satélite em órbita">
+        <span>
+          <span class="brand__name">DARK ORBIT</span><br>
+          <span class="brand__sub">BR · Mission Control</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Navegação principal">
+        <p class="nav__label">Operação</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__item" href="index.html" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+              <span>Painel da frota</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__item" href="satelite.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 10 10M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/></svg>
+              <span>Satélites</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__item" href="manobra.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+              <span>Simular manobra</span>
+            </a>
+          </li>
+        </ul>
+
+        <p class="nav__label" style="margin-top:var(--s-5)">Monitoramento</p>
+        <ul class="nav__list">
+          <li>
+            <a class="nav__item" href="index.html#alertas">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 7-2 7h16s-2-2-2-7a6 6 0 0 0-6-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+              <span>Alertas</span>
+            </a>
+          </li>
+          <li>
+            <a class="nav__item" href="index.html#clima">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+              <span>Clima espacial</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar__foot">
+        <div class="userchip">
+          <span class="userchip__avatar" aria-hidden="true">LM</span>
+          <span>
+            <span class="userchip__name">Larissa Mendes</span><br>
+            <span class="userchip__role">Operadora · UFRJ-Sat</span>
+          </span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ========================= PRINCIPAL ========================= -->
+    <div class="main">
+      <header class="topbar">
+        <div class="topbar__title">
+          <span class="eyebrow">Centro de Controle</span>
+          <h1>Painel da frota</h1>
+        </div>
+        <div class="topbar__spacer"></div>
+        <div class="topbar__meta">
+          <span class="live"><span class="live__dot" aria-hidden="true"></span> SINAL AO VIVO</span>
+          <time class="clock" datetime="2026-05-25T15:30">25 MAI · 15:30 UTC</time>
+          <button class="iconbtn" aria-label="Notificações">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 7-2 7h16s-2-2-2-7a6 6 0 0 0-6-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <main class="content" id="conteudo">
+
+        <!-- BANNER DE EVENTO CRÍTICO (estado de tempestade) -->
+        <section class="alert alert--crit rise" aria-labelledby="alerta-titulo" id="alertas">
+          <span class="alert__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+          </span>
+          <div class="alert__body">
+            <p class="alert__title" id="alerta-titulo">Tempestade geomagnética severa em curso</p>
+            <p class="alert__text">Índice Kp 7 · Dst −135 nT · reforço local sobre a SAMA (+95 nT) detectado pela rede EMBRACE. Densidade termosférica estimada em <strong class="readout" style="color:var(--st-crit)">2,5×</strong> o normal. Previsões marcadas como <strong>baixa confiança</strong> — alertas automáticos suspensos, revisão manual recomendada.</p>
+            <div class="alert__actions">
+              <a class="btn btn--danger" href="manobra.html">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+                Avaliar manobra
+              </a>
+              <a class="btn btn--ghost" href="satelite.html">Ver satélite afetado</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- KPIs -->
+        <section class="grid grid--kpi" aria-label="Indicadores gerais">
+          <article class="panel kpi rise">
+            <div class="kpi__top">
+              <span class="kpi__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/></svg></span>
+              <span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Frota</span>
+            </div>
+            <div><span class="kpi__value">5</span></div>
+            <span class="kpi__label">Satélites monitorados</span>
+          </article>
+
+          <article class="panel kpi rise">
+            <div class="kpi__top">
+              <span class="kpi__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg></span>
+              <span class="pill pill--crit"><span class="pill__dot" aria-hidden="true"></span>Crítico</span>
+            </div>
+            <div><span class="kpi__value" style="color:var(--st-crit)">1</span></div>
+            <span class="kpi__label">Em risco de conjunção</span>
+          </article>
+
+          <article class="panel kpi rise">
+            <div class="kpi__top">
+              <span class="kpi__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+              <span class="kpi__delta kpi__delta--up">▲ +100%</span>
+            </div>
+            <div><span class="kpi__value">100<small>%</small></span></div>
+            <span class="kpi__label">Incerteza da previsão</span>
+          </article>
+
+          <article class="panel kpi rise">
+            <div class="kpi__top">
+              <span class="kpi__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M12 14 9 9"/><circle cx="12" cy="14" r="1.5"/></svg></span>
+              <span class="kpi__delta kpi__delta--flat">estável</span>
+            </div>
+            <div><span class="kpi__value">2<small>/dia</small></span></div>
+            <span class="kpi__label">Manobras sugeridas (7 d)</span>
+          </article>
+        </section>
+
+        <!-- LINHA PRINCIPAL: frota + clima espacial -->
+        <section class="grid grid--split">
+          <!-- Lista da frota -->
+          <article class="panel panel--hud rise" aria-labelledby="frota-titulo">
+            <div class="panel__head">
+              <h3 id="frota-titulo">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--signal)" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+                Frota monitorada
+              </h3>
+              <div class="tabs" role="tablist" aria-label="Filtrar por status">
+                <span class="tab" role="tab" aria-selected="true">Todos</span>
+                <span class="tab" role="tab" aria-selected="false">Atenção</span>
+                <span class="tab" role="tab" aria-selected="false">Crítico</span>
+              </div>
+            </div>
+
+            <div class="fleet" role="table" aria-label="Satélites da frota">
+              <div class="fleet__row fleet__row--head" role="row">
+                <span role="columnheader" aria-label="Status"></span>
+                <span role="columnheader">Satélite</span>
+                <span role="columnheader">Altitude</span>
+                <span role="columnheader">Arrasto</span>
+                <span role="columnheader">Conjunção</span>
+                <span role="columnheader" aria-label="Abrir"></span>
+              </div>
+
+              <a class="fleet__row" role="row" href="satelite.html">
+                <span class="statusdot statusdot--crit" role="cell" aria-label="Status crítico"></span>
+                <span class="fleet__name" role="cell"><b>CubeSat-Rio-1</b><span>NORAD 55001</span></span>
+                <span class="fleet__metric" data-label="Altitude" role="cell">503 <small>km</small></span>
+                <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--warn"><span class="pill__dot" aria-hidden="true"></span>Alto</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--crit"><span class="pill__dot" aria-hidden="true"></span>Crítico</span></span>
+                <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+              </a>
+
+              <a class="fleet__row" role="row" href="satelite.html">
+                <span class="statusdot statusdot--crit" role="cell" aria-label="Status crítico"></span>
+                <span class="fleet__name" role="cell"><b>Estação-Baixa-4</b><span>NORAD 55033</span></span>
+                <span class="fleet__metric" data-label="Altitude" role="cell">225 <small>km</small></span>
+                <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--crit"><span class="pill__dot" aria-hidden="true"></span>Crítico</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Nenhuma</span></span>
+                <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+              </a>
+
+              <a class="fleet__row" role="row" href="satelite.html">
+                <span class="statusdot statusdot--warn" role="cell" aria-label="Status de atenção"></span>
+                <span class="fleet__name" role="cell"><b>NanoSat-Verde-2</b><span>NORAD 55014</span></span>
+                <span class="fleet__metric" data-label="Altitude" role="cell">540 <small>km</small></span>
+                <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--warn"><span class="pill__dot" aria-hidden="true"></span>Médio</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Baixa</span></span>
+                <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+              </a>
+
+              <a class="fleet__row" role="row" href="satelite.html">
+                <span class="statusdot statusdot--calm" role="cell" aria-label="Status calmo"></span>
+                <span class="fleet__name" role="cell"><b>Amazonia-Obs-3</b><span>NORAD 55020</span></span>
+                <span class="fleet__metric" data-label="Altitude" role="cell">598 <small>km</small></span>
+                <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--calm"><span class="pill__dot" aria-hidden="true"></span>Baixo</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Nenhuma</span></span>
+                <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+              </a>
+
+              <a class="fleet__row" role="row" href="satelite.html">
+                <span class="statusdot statusdot--calm" role="cell" aria-label="Status calmo"></span>
+                <span class="fleet__name" role="cell"><b>SACI-Edu-5</b><span>NORAD 55048</span></span>
+                <span class="fleet__metric" data-label="Altitude" role="cell">615 <small>km</small></span>
+                <span class="fleet__metric" data-label="Arrasto" role="cell"><span class="pill pill--calm"><span class="pill__dot" aria-hidden="true"></span>Baixo</span></span>
+                <span class="fleet__metric" data-label="Conjunção" role="cell"><span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>Nenhuma</span></span>
+                <span class="fleet__chevron" role="cell" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg></span>
+              </a>
+            </div>
+          </article>
+
+          <!-- Clima espacial -->
+          <article class="panel rise" aria-labelledby="clima-titulo" id="clima">
+            <div class="panel__head">
+              <h3 id="clima-titulo">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--signal)" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></svg>
+                Clima espacial
+              </h3>
+              <span class="pill pill--crit"><span class="pill__dot" aria-hidden="true"></span>Severo</span>
+            </div>
+            <div class="panel__body stack-5" style="display:flex;flex-direction:column;gap:var(--s-5)">
+              <div class="gauge">
+                <div class="gauge__top"><span class="gauge__name">Índice Kp (geomagnético)</span><span class="gauge__val">7,0 / 9</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" style="width:78%"></div></div>
+                <div class="gauge__scale"><span>0 calmo</span><span>9 extremo</span></div>
+              </div>
+              <div class="gauge">
+                <div class="gauge__top"><span class="gauge__name">Dst (tempestade)</span><span class="gauge__val">−135 nT</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--crit" style="width:68%"></div></div>
+                <div class="gauge__scale"><span>0</span><span>−200 nT</span></div>
+              </div>
+              <div class="gauge">
+                <div class="gauge__top"><span class="gauge__name">SAMA · ΔH local <span class="dim">(EMBRACE)</span></span><span class="gauge__val">+95 nT</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" style="width:84%"></div></div>
+                <div class="gauge__scale"><span>baixo</span><span>alto</span></div>
+              </div>
+              <div class="gauge">
+                <div class="gauge__top"><span class="gauge__name">TEC equatorial <span class="dim">(EMBRACE)</span></span><span class="gauge__val">1,55×</span></div>
+                <div class="gauge__track"><div class="gauge__fill gauge__fill--warn" style="width:72%"></div></div>
+                <div class="gauge__scale"><span>1,0 normal</span><span>2,0</span></div>
+              </div>
+            </div>
+            <div class="panel__foot">
+              <p class="dim" style="font-size:0.74rem;font-family:var(--f-mono)">Fontes: NOAA SWPC · EMBRACE/INPE · atualizado há 2 min</p>
+            </div>
+          </article>
+        </section>
+
+        <!-- HISTÓRICO + MAPA -->
+        <section class="grid grid--split">
+          <!-- Mapa orbital -->
+          <article class="panel panel--hud rise" aria-labelledby="mapa-titulo">
+            <div class="panel__head">
+              <h3 id="mapa-titulo">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--signal)" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+                Cobertura sobre o Atlântico Sul
+              </h3>
+              <span class="pill pill--neutral"><span class="pill__dot" aria-hidden="true"></span>SAMA ativa</span>
+            </div>
+            <div class="orbital">
+              <svg viewBox="0 0 600 320" role="img" aria-label="Mapa estilizado do globo centrado no Atlântico Sul, com a região da Anomalia Magnética do Atlântico Sul destacada e satélites em órbita.">
+                <defs>
+                  <radialGradient id="sama" cx="50%" cy="50%" r="50%">
+                    <stop offset="0" stop-color="#f5a623" stop-opacity="0.55"/>
+                    <stop offset="0.6" stop-color="#d6457f" stop-opacity="0.22"/>
+                    <stop offset="1" stop-color="#d6457f" stop-opacity="0"/>
+                  </radialGradient>
+                  <linearGradient id="globe" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#13243f"/>
+                    <stop offset="1" stop-color="#0a1325"/>
+                  </linearGradient>
+                </defs>
+                <!-- estrelas -->
+                <g fill="#3a4a6a">
+                  <circle cx="60" cy="40" r="1"/><circle cx="120" cy="80" r="0.8"/><circle cx="520" cy="60" r="1.1"/>
+                  <circle cx="560" cy="140" r="0.8"/><circle cx="40" cy="200" r="0.9"/><circle cx="500" cy="250" r="1"/>
+                  <circle cx="300" cy="30" r="0.7"/><circle cx="220" cy="290" r="0.9"/>
+                </g>
+                <!-- globo -->
+                <circle cx="300" cy="170" r="120" fill="url(#globe)" stroke="#22375c" stroke-width="1.5"/>
+                <!-- meridianos/paralelos -->
+                <g fill="none" stroke="#1c2e4d" stroke-width="1">
+                  <ellipse cx="300" cy="170" rx="120" ry="40"/>
+                  <ellipse cx="300" cy="170" rx="120" ry="80"/>
+                  <ellipse cx="300" cy="170" rx="45" ry="120"/>
+                  <ellipse cx="300" cy="170" rx="90" ry="120"/>
+                  <line x1="180" y1="170" x2="420" y2="170"/>
+                </g>
+                <!-- contorno estilizado da América do Sul -->
+                <path d="M255 120 q15 5 18 20 q12 8 6 24 q10 18 -4 30 q-2 22 -18 30 q-10 14 -20 4 q-14 -8 -10 -26 q-12 -16 0 -30 q-4 -20 12 -28 q6 -18 26 -18 Z"
+                      fill="#1a2c49" stroke="#2c4470" stroke-width="1.2" opacity="0.9"/>
+                <!-- brilho da anomalia SAMA -->
+                <ellipse cx="250" cy="195" rx="95" ry="70" fill="url(#sama)"/>
+                <circle cx="250" cy="195" r="4" fill="#f5a623"/>
+                <text x="250" y="225" text-anchor="middle" fill="#f5a623" font-family="IBM Plex Mono, monospace" font-size="9" letter-spacing="1">SAMA</text>
+                <!-- órbitas dos satélites -->
+                <g fill="none" stroke="#2c4470" stroke-width="1.2">
+                  <ellipse class="orbit-path-anim" cx="300" cy="170" rx="155" ry="60" stroke="#3fe0d2" stroke-opacity="0.5" transform="rotate(-18 300 170)"/>
+                  <ellipse cx="300" cy="170" rx="170" ry="95" stroke-opacity="0.6" transform="rotate(12 300 170)"/>
+                </g>
+                <!-- satélites -->
+                <g class="orbit-sat" style="transform-box:fill-box">
+                  <g transform="rotate(-18 300 170)">
+                    <circle cx="455" cy="170" r="5" fill="#fb6a5e"/>
+                    <circle cx="455" cy="170" r="9" fill="none" stroke="#fb6a5e" stroke-width="1" opacity="0.4"/>
+                  </g>
+                </g>
+                <g class="orbit-sat orbit-sat--slow" style="transform-box:fill-box">
+                  <g transform="rotate(12 300 170)">
+                    <circle cx="470" cy="170" r="4" fill="#34d399"/>
+                  </g>
+                </g>
+                <circle cx="180" cy="120" r="3.5" fill="#f5b73d"/>
+              </svg>
+              <ul class="orbital__legend">
+                <li><span class="legend-swatch" style="background:#fb6a5e" aria-hidden="true"></span> Crítico</li>
+                <li><span class="legend-swatch" style="background:#f5b73d" aria-hidden="true"></span> Atenção</li>
+                <li><span class="legend-swatch" style="background:#34d399" aria-hidden="true"></span> Nominal</li>
+                <li><span class="legend-swatch" style="background:#f5a623" aria-hidden="true"></span> Anomalia SAMA</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Histórico de eventos -->
+          <article class="panel rise" aria-labelledby="hist-titulo">
+            <div class="panel__head">
+              <h3 id="hist-titulo">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--signal)" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                Eventos recentes
+              </h3>
+            </div>
+            <div class="panel__body">
+              <div class="timeline">
+                <div class="tl__item">
+                  <div class="tl__rail"><span class="tl__node tl__node--crit" aria-hidden="true"></span><span class="tl__line"></span></div>
+                  <div>
+                    <p class="tl__time">15:30 UTC · agora</p>
+                    <p class="tl__title">Tempestade severa detectada (Kp 7)</p>
+                    <p class="tl__desc">Reforço local sobre a SAMA registrado pelo EMBRACE.</p>
+                  </div>
+                </div>
+                <div class="tl__item">
+                  <div class="tl__rail"><span class="tl__node tl__node--warn" aria-hidden="true"></span><span class="tl__line"></span></div>
+                  <div>
+                    <p class="tl__time">15:18 UTC</p>
+                    <p class="tl__title">Arrasto elevado · Estação-Baixa-4</p>
+                    <p class="tl__desc">Decaimento estimado subiu para ~12,8 km/dia a 225 km.</p>
+                  </div>
+                </div>
+                <div class="tl__item">
+                  <div class="tl__rail"><span class="tl__node tl__node--crit" aria-hidden="true"></span><span class="tl__line"></span></div>
+                  <div>
+                    <p class="tl__time">09:04 UTC</p>
+                    <p class="tl__title">Conjunção crítica · CubeSat-Rio-1</p>
+                    <p class="tl__desc">Objeto DEBRIS-X7 a 0,9 km — alerta disparado.</p>
+                  </div>
+                </div>
+                <div class="tl__item">
+                  <div class="tl__rail"><span class="tl__node tl__node--calm" aria-hidden="true"></span></div>
+                  <div>
+                    <p class="tl__time">08:00 UTC</p>
+                    <p class="tl__title">Janela calma · frota nominal</p>
+                    <p class="tl__desc">Todos os satélites dentro dos limiares configurados.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>Dark Orbit BR · Global Solution 2026 · FIAP Engenharia de Software</span>
+        <span class="footer__tag">v0.1 — protótipo de interface (FED)</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Navegação inferior (mobile) -->
+  <nav class="mobnav" aria-label="Navegação principal (mobile)">
+    <a class="mobnav__item" href="index.html" aria-current="page">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+      Painel
+    </a>
+    <a class="mobnav__item" href="satelite.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/></svg>
+      Satélites
+    </a>
+    <a class="mobnav__item" href="manobra.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>
+      Manobra
+    </a>
+    <a class="mobnav__item" href="index.html#alertas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3a6 6 0 0 0-6 6c0 5-2 7-2 7h16s-2-2-2-7a6 6 0 0 0-6-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+      Alertas
+    </a>
+  </nav>
+</body>
+</html>

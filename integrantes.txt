@@ -1,0 +1,11 @@
+INTEGRANTES DO GRUPO
+====================
+
+Nome: Arthur Alen Amorelli Pereira
+RM:   571897
+
+Curso: Engenharia de Software — 1º Semestre
+Turma: Semi Presencial
+Disciplina: Front-End Design
+Projeto: Dark Orbit BR — Centro de Controle
+Global Solution 2026 — FIAP

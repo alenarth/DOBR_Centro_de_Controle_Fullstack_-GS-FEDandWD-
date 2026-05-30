@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Acesso da tripulação ao Centro de Controle do Dark Orbit BR.">
+  <title>Acesso · Dark Orbit BR</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Saira:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Layout específico da tela de acesso (split visual + formulário).
+       Mantido localmente por ser exclusivo desta página. */
+    .auth { display: grid; grid-template-columns: 1.05fr 0.95fr; min-height: 100vh; }
+    .auth__visual {
+      position: relative; overflow: hidden;
+      background: radial-gradient(130% 120% at 30% 20%, #11203a, var(--c-void));
+      border-right: 1px solid var(--c-line);
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: var(--s-7);
+    }
+    .auth__brand { display: flex; align-items: center; gap: var(--s-3); }
+    .auth__brand img { width: 44px; height: 44px; }
+    .auth__brand b { font-family: var(--f-display); font-size: 1.2rem; color: var(--t-hi); letter-spacing: 0.02em; }
+    .auth__brand small { font-family: var(--f-mono); font-size: 0.62rem; letter-spacing: 0.18em; color: var(--t-low); text-transform: uppercase; display: block; }
+    .auth__headline { max-width: 30ch; }
+    .auth__headline h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: var(--s-3); }
+    .auth__headline p { color: var(--t-mid); font-size: 0.95rem; }
+    .auth__globe { position: absolute; right: -120px; top: 50%; transform: translateY(-50%); width: 520px; opacity: 0.5; pointer-events: none; }
+    .auth__stats { display: flex; gap: var(--s-6); position: relative; z-index: 1; }
+    .auth__stat b { font-family: var(--f-display); font-size: 1.5rem; color: var(--signal); display: block; }
+    .auth__stat span { font-size: 0.74rem; color: var(--t-low); }
+    .auth__form { display: flex; flex-direction: column; justify-content: center; padding: var(--s-7); }
+    .auth__card { width: 100%; max-width: 380px; margin: 0 auto; }
+    @media (max-width: 880px) {
+      .auth { grid-template-columns: 1fr; }
+      .auth__visual { display: none; }
+      .auth__form { padding: var(--s-6) var(--s-5); }
+    }
+  </style>
+</head>
+<body>
+  <main class="auth">
+    <!-- Painel visual -->
+    <section class="auth__visual" aria-hidden="true">
+      <div class="auth__brand">
+        <img src="assets/logo.svg" alt="">
+        <span><b>DARK ORBIT BR</b><small>Mission Control</small></span>
+      </div>
+
+      <div class="auth__headline">
+        <span class="eyebrow">Previsão de risco orbital</span>
+        <h2>O céu sobre o Atlântico Sul, sob controle.</h2>
+        <p>Previsão de arrasto e risco de colisão em tempo real, com os dados da rede brasileira EMBRACE que ninguém mais usa.</p>
+      </div>
+
+      <div class="auth__stats">
+        <div class="auth__stat"><b>24–72h</b><span>horizonte de previsão</span></div>
+        <div class="auth__stat"><b>7×/dia</b><span>cruzamentos da SAMA</span></div>
+        <div class="auth__stat"><b>&lt;5min</b><span>dado bruto → previsão</span></div>
+      </div>
+
+      <!-- globo decorativo -->
+      <svg class="auth__globe" viewBox="0 0 400 400">
+        <defs>
+          <radialGradient id="sama3" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#f5a623" stop-opacity="0.5"/>
+            <stop offset="0.6" stop-color="#d6457f" stop-opacity="0.18"/>
+            <stop offset="1" stop-color="#d6457f" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="150" fill="#0d1828" stroke="#22375c" stroke-width="1.5"/>
+        <g fill="none" stroke="#1c2e4d" stroke-width="1">
+          <ellipse cx="200" cy="200" rx="150" ry="50"/>
+          <ellipse cx="200" cy="200" rx="150" ry="100"/>
+          <ellipse cx="200" cy="200" rx="60" ry="150"/>
+          <ellipse cx="200" cy="200" rx="115" ry="150"/>
+          <line x1="50" y1="200" x2="350" y2="200"/>
+        </g>
+        <ellipse cx="165" cy="235" rx="100" ry="75" fill="url(#sama3)"/>
+        <circle cx="165" cy="235" r="4" fill="#f5a623"/>
+        <ellipse class="orbit-path-anim" cx="200" cy="200" rx="195" ry="78" fill="none" stroke="#3fe0d2" stroke-width="1.5" stroke-opacity="0.6" transform="rotate(-20 200 200)"/>
+        <g transform="rotate(-20 200 200)"><circle cx="395" cy="200" r="5" fill="#3fe0d2"/></g>
+      </svg>
+    </section>
+
+    <!-- Formulário de acesso -->
+    <section class="auth__form">
+      <div class="auth__card">
+        <!-- marca visível também no mobile -->
+        <div class="row" style="gap:var(--s-3);margin-bottom:var(--s-6)">
+          <img src="assets/logo.svg" alt="Logotipo do Dark Orbit BR" style="width:40px;height:40px">
+          <span><b style="font-family:var(--f-display);color:var(--t-hi);font-size:1.05rem">DARK ORBIT BR</b><br><span class="dim" style="font-family:var(--f-mono);font-size:0.62rem;letter-spacing:0.16em">MISSION CONTROL</span></span>
+        </div>
+
+        <h1 style="margin-bottom:var(--s-2)">Acesso da tripulação</h1>
+        <p class="muted" style="margin-bottom:var(--s-6)">Entre para acompanhar a sua frota em tempo real.</p>
+
+        <!-- form sem JS: a validação real entra no Web Development -->
+        <form action="index.html" method="get" novalidate>
+          <div class="field">
+            <label class="field__label" for="email">E-mail <span class="req" aria-hidden="true">*</span></label>
+            <div class="inputgroup">
+              <span class="inputgroup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+              <input class="input" id="email" name="email" type="email" placeholder="operador@universidade.br" autocomplete="email" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="senha">Senha <span class="req" aria-hidden="true">*</span></label>
+            <div class="inputgroup">
+              <span class="inputgroup__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span>
+              <input class="input" id="senha" name="senha" type="password" placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+            <span class="field__hint">Use a senha enviada ao cadastrar sua estação.</span>
+          </div>
+
+          <div class="row row--between" style="margin-bottom:var(--s-5)">
+            <span class="switch">
+              <span class="switch__track" aria-hidden="true"></span>
+              <span class="switch__label">Manter conectado</span>
+            </span>
+            <a href="#" style="font-size:0.82rem;color:var(--signal)">Esqueci a senha</a>
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M10 17l5-5-5-5M15 12H3"/></svg>
+            Entrar no Centro de Controle
+          </button>
+        </form>
+
+        <p class="text-center muted" style="margin-top:var(--s-5);font-size:0.84rem">
+          Ainda não tem conta? <a href="#" style="color:var(--signal)">Cadastre sua estação</a>
+        </p>
+
+        <p class="text-center dim" style="margin-top:var(--s-6);font-size:0.7rem;font-family:var(--f-mono);letter-spacing:0.06em">
+          PLANO GRATUITO · 1 SATÉLITE · SEM CARTÃO
+        </p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
